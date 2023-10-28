@@ -42,6 +42,8 @@ After a successful login, you will receive an authentication token. To access pr
 
 #### GET `/api/weather/current?city=[cityname]`
 
+The Api will fetch the current city weather from the https://www.weatherapi.com/ portal. 
+
 - **Response (200 OK):**
   ```json
   {
@@ -170,6 +172,20 @@ If you encounter any issues or have suggestions for improvement, please open an 
 ## Contributing
 
 Feel free to contribute to this project by creating pull requests.
+
+## Project Man-Hours
+
+I've invested a total of 490 man-hours in the development of this project. This includes the combined efforts of the development team, designer, QA tester, and project manager.
+
+Here's the breakdown of man-hours by role:
+
+- Research & Get Familiar with some packages : 2 hours
+- Clean architecture study: 2 hours
+- Development: 6 hours
+
+**Total Man hours:** 10
+
+
 
 
 
