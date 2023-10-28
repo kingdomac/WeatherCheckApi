@@ -169,12 +169,12 @@ Follow these steps to set up and run the WeatherCheckApi on your local machine:
 
 ## Project Man-Hours
 
-I've invested a total of 490 man-hours in the development of this project. This includes the combined efforts of the development team, designer, QA tester, and project manager.
+I've invested a total of 10 man-hours in the development of this project.
 
-Here's the breakdown of man-hours by role:
+Here's the breakdown of man-hours:
 
-- Research & Getting Familiar with new packages : 2 hours
-- Clean architecture study: 2 hours
+- Research & Getting Familiar with new packages [EF, Auto Mapper, Automapper dependency injection, BCrypt]: 2 hours
+- Clean architecture study [Presentation, Infrastructure, Application, Domain, Utility]: 2 hours
 - Development: 6 hours
 
 **Total Man hours:** 10
