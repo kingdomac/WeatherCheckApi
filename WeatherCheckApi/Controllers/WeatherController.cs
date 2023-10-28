@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Application.DTO;
 using WeatherCheckApi.Domain.Entities;
 using WeatherCheckApi.Domain.Interfaces;
@@ -43,7 +43,7 @@ namespace WeatherCheckApi.Controllers
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(response.StatusCode);
-                ModelState.AddModelError("", "Result not found");
+                ModelState.AddModelError("", MessageConstants.ResultNotFound);
                 return StatusCode(StatusCodes.Status400BadRequest, ModelState);
 
             }
@@ -54,9 +54,7 @@ namespace WeatherCheckApi.Controllers
             if (responseContent is null) return NotFound();
 
             var weatherApiResponseDeserialized = WeatherApiService.Deserialize(responseContent);
-            //var weatherApiResponseDeserialized = JsonSerializer.Deserialize<WeatherApiResponse>(responseContent);
-
-            //var weatherResponse = WeatherMapper.MapResponseToApiDto(weatherApiResponseDeserialized);
+            
             var weatherResponse = WeatherApiService.MapResponseToApiDto(weatherApiResponseDeserialized);
 
             return Ok(weatherResponse);
@@ -79,7 +77,7 @@ namespace WeatherCheckApi.Controllers
 
             if (!isCreated)
             {
-                ModelState.AddModelError("", "History creation failed. Internal server error");
+                ModelState.AddModelError("", MessageConstants.CreationFailed);
                 return StatusCode(StatusCodes.Status500InternalServerError, ModelState);
             }
 
@@ -98,8 +96,7 @@ namespace WeatherCheckApi.Controllers
 
             var weathers = await _weatherRepo.GetHistoryOfCityAsync(city, currentUser.Id);
 
-            // Create a collection of WeatherDto objects by manually mapping the data
-            //var weatherDtos = WeatherMapper.MapCollectionOfModelToDto(weathers);
+            // Create a collection of WeatherDto objects by mapping the data
             var weatherDtos = _mapper.Map<List<WeatherDto>>(weathers);
 
             return Ok(weatherDtos);

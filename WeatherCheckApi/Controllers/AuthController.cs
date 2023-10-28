@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Application.DTO;
 using WeatherCheckApi.Domain.Interfaces;
-using WeatherCheckApi.Infrastructure.Data.DB;
 using WeatherCheckApi.Requests;
 using WeatherCheckApi.Utility.Helpers;
 
@@ -13,12 +12,10 @@ namespace WeatherCheckApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly DataContext _dataContext;
         private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
-        public AuthController(DataContext dataContext, IUserRepo userRepo, IMapper mapper)
+        public AuthController(IUserRepo userRepo, IMapper mapper)
         {
-            _dataContext = dataContext;
             _userRepo = userRepo;
             _mapper = mapper;
         }
@@ -33,11 +30,10 @@ namespace WeatherCheckApi.Controllers
 
             var user = await _userRepo.GetUserByEmailAsync(loginRequest.Email);
 
-            if (user == null) return BadRequest("Invalid email/password");
+            if (user == null) return BadRequest(MessageConstants.InvalidEmailAddress);
 
-            if (!PasswordHelper.Verify(loginRequest.Password, user.Password)) return BadRequest("Invalid email/password");
+            if (!PasswordHelper.Verify(loginRequest.Password, user.Password)) return BadRequest(MessageConstants.InvalidEmailAddress);
 
-            // TODO Generate Token
             string token = TokenHelper.Generate();
 
             // Token encoding
@@ -48,7 +44,7 @@ namespace WeatherCheckApi.Controllers
 
             if (!isUpdated)
             {
-                ModelState.AddModelError("", "Internal server error");
+                ModelState.AddModelError("", MessageConstants.InternalServerError);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 

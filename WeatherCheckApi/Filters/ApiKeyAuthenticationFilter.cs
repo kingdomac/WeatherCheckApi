@@ -20,7 +20,7 @@ namespace WeatherCheckApi.Filters
 
             if (!context.HttpContext.Request.Headers.TryGetValue(AuthConstants.ApiKeyHeaderName, out var extractedApiKey))
             {
-                context.Result = new UnauthorizedObjectResult(new { Error = "API key is missing" });
+                context.Result = new UnauthorizedObjectResult(new { Error = MessageConstants.ApiKeyMissing });
                 return;
             }
 
@@ -31,7 +31,7 @@ namespace WeatherCheckApi.Filters
 
             if (user == null)
             {
-                context.Result = new UnauthorizedObjectResult(new { Error = "Invalid API key" });
+                context.Result = new UnauthorizedObjectResult(new { Error = MessageConstants.InvalidApiKey });
                 return;
             }
 
