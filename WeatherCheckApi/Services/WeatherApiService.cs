@@ -11,8 +11,8 @@ namespace WeatherCheckApi.Services
             var weatherResponse = new WeatherApiDto
             {
                 CityName = response.location.CityName,
-                TemperatureCelsius = response.current.TemperatureCelsius,
-                WindSpeedKph = response.current.WindSpeedKph,
+                TemperatureC = response.current.TemperatureC,
+                WindSpeedKm = response.current.WindSpeedKm,
                 Humidity = response.current.Humidity,
                 RequestDateTime = DateTime.Now
             };

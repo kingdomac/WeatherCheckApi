@@ -48,8 +48,8 @@ The Api will fetch the current city weather from the https://www.weatherapi.com/
   ```json
   {
     "cityName": "string",
-    "temperatureCelsius": 0,
-    "windSpeedKph": 0,
+    "temperatureC": 0,
+    "windSpeedKm": 0,
     "humidity": 0,
     "requestDateTime": "2023-10-27T23:27:49.109Z"
   }
@@ -81,8 +81,8 @@ To save the current weather conditions for a specific location, you can send a P
   ```json
   {
     "cityName": "string",
-    "temperatureCelsius": 0,
-    "windSpeedKph": 0,
+    "temperatureC": 0,
+    "windSpeedKm": 0,
     "humidity": 0,
     "requestDateTime": "2023-10-27T23:40:08.777Z"
   }
@@ -91,8 +91,13 @@ To save the current weather conditions for a specific location, you can send a P
 
     ```json
     {
-        "id": 1
-    }
+    "id": 1,
+    "cityName": "string",
+    "temperatureC": 0,
+    "windSpeedKm": 0,
+    "humidity": 0,
+    "requestDateTime": "2023-10-27T23:40:08.777Z"
+  }
 
 - **Response (500 Internal Server Error):**
 
@@ -109,16 +114,16 @@ In the case of a server error, you will receive a 500 Internal Server Error resp
       {
         "id": 0,
         "cityName": "string",
-        "temperatureCelsius": 0,
-        "windSpeedKph": 0,
+        "temperatureC": 0,
+        "windSpeedKm": 0,
         "humidity": 0,
         "requestDateTime": "2023-10-27T23:52:21.408Z"
       },
           {
         "id": 0,
         "cityName": "string",
-        "temperatureCelsius": 0,
-        "windSpeedKph": 0,
+        "temperatureC": 0,
+        "windSpeedKm": 0,
         "humidity": 0,
         "requestDateTime": "2023-10-27T23:52:21.408Z"
       }

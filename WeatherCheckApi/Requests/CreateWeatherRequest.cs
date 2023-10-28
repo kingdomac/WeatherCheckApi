@@ -4,8 +4,8 @@ namespace WeatherCheckApi.Requests
 {
     public record CreateWeatherRequest(
          [Required] string CityName,
-         [Required] float TemperatureCelsius,
-         float WindSpeedKph,
+         [Required] float TemperatureC,
+         float WindSpeedKm,
          int Humidity,
          DateTime RequestDateTime
     );

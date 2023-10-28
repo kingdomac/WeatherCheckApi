@@ -42,7 +42,6 @@ namespace WeatherCheckApi.Controllers
 
             if (!response.IsSuccessStatusCode)
             {
-                Console.WriteLine(response.StatusCode);
                 ModelState.AddModelError("", MessageConstants.ResultNotFound);
                 return StatusCode(StatusCodes.Status400BadRequest, ModelState);
 
@@ -62,7 +61,7 @@ namespace WeatherCheckApi.Controllers
         }
 
         [HttpPost("current")]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(WeatherDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateWeatherOfCity(CreateWeatherRequest weatherCreate)
         {
@@ -83,7 +82,7 @@ namespace WeatherCheckApi.Controllers
 
             var weatherDto = _mapper.Map<WeatherDto>(weatherModel);
 
-            return Created("create_success", weatherModel.Id );
+            return Created("create_success", weatherDto);
 
         }
 

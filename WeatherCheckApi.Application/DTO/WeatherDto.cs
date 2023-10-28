@@ -10,8 +10,8 @@ namespace WeatherCheckApi.Application.DTO
     {
         public int Id { get; set; }
         public required string CityName { get; set; }
-        public float TemperatureCelsius { get; set; }
-        public float WindSpeedKph { get; set; }
+        public float TemperatureC { get; set; }
+        public float WindSpeedKm { get; set; }
         public int Humidity { get; set; }
         public DateTime RequestDateTime { get; set; }
     }

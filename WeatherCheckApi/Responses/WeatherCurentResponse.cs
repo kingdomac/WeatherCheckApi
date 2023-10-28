@@ -5,10 +5,10 @@ namespace WeatherCheckApi.Responses
     public class WeatherCurentResponse
     {
         [JsonPropertyName("temp_c")]
-        public float TemperatureCelsius { get; set; }
+        public float TemperatureC { get; set; }
 
         [JsonPropertyName("wind_kph")]
-        public float WindSpeedKph { get; set; }
+        public float WindSpeedKm { get; set; }
 
         [JsonPropertyName("humidity")]
         public int Humidity { get; set; }
