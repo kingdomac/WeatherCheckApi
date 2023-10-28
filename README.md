@@ -167,19 +167,13 @@ Follow these steps to set up and run the WeatherCheckApi on your local machine:
 
     You can now explore and test the API using the provided endpoints.
 
-If you encounter any issues or have suggestions for improvement, please open an issue.
-
-## Contributing
-
-Feel free to contribute to this project by creating pull requests.
-
 ## Project Man-Hours
 
 I've invested a total of 490 man-hours in the development of this project. This includes the combined efforts of the development team, designer, QA tester, and project manager.
 
 Here's the breakdown of man-hours by role:
 
-- Research & Get Familiar with some packages : 2 hours
+- Research & Getting Familiar with new packages : 2 hours
 - Clean architecture study: 2 hours
 - Development: 6 hours
 

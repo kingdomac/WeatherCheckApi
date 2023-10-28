@@ -37,7 +37,6 @@ namespace WeatherCheckApi.Filters
 
             context.HttpContext.Items["User"] = user;
 
-
         }
     }
 }
