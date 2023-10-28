@@ -178,6 +178,15 @@ Follow these steps to set up and run the WeatherCheckApi on your local machine:
 
     You can now explore and test the API using the provided endpoints.
 
+
+## Limitations
+
+During the project, I encountered certain limitations in implementing Test-Driven Development (TDD) effectively. 
+While I am well-versed in TDD practices, including unit testing, integration testing, and functional testing, 
+faced challenges in some specific areas. 
+
+One of the notable challenges was related to setting up and utilizing mocking and related functionalities.
+
 ## Project Man-Hours
 
 I've invested a total of 10 man-hours in the development of this project.
@@ -189,6 +198,7 @@ Here's the breakdown of man-hours:
 - Development: 6 hours
 
 **Total Man hours:** 10
+
 
 
 
