@@ -62,7 +62,7 @@ namespace WeatherCheckApi.Controllers
         }
 
         [HttpPost("current")]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Weather))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateWeatherOfCity(CreateWeatherRequest weatherCreate)
         {
@@ -81,7 +81,9 @@ namespace WeatherCheckApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ModelState);
             }
 
-            return Created("create_success", new { weatherModel.Id });
+            var weatherDto = _mapper.Map<WeatherDto>(weatherModel);
+
+            return Created("create_success", weatherModel.Id );
 
         }
 

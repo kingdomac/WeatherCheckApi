@@ -151,7 +151,7 @@ Follow these steps to set up and run the WeatherCheckApi on your local machine:
     dotnet restore
     ```
 
-3. **Migrate Database:** Open the Package manager console
+3. **Migrate & Seed Database:** Open the Package manager console
 
     ```shell
     update-database
