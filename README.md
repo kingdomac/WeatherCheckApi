@@ -4,7 +4,7 @@ WeatherCheckApi is an API that allows users to check and save current weather co
 
 ## Endpoints
 
-### - User Authentication
+### User Authentication
 
 #### POST `/api/login`
 
@@ -38,7 +38,7 @@ Use the token for subsequent requests to authenticate the user.
 After a successful login, you will receive an authentication token. To access protected endpoints and authenticate your requests, include the token in the request header with the key "**Auth-Api-Key**".
 
 
-### - Current Weather
+### Current Weather
 
 #### GET `/api/weather/current?city=[cityname]`
 
@@ -68,7 +68,7 @@ To retrieve the current weather data, you can send a GET request to the `/api/we
 
 In case of an error, you may receive a 400 Bad Request or 404 Not Found response.
 
-### - Save Current Weather Conditions
+### Save Current Weather Conditions
 
 #### POST `/api/weather/current`
 
@@ -96,7 +96,7 @@ To save the current weather conditions for a specific location, you can send a P
 
 In the case of a server error, you will receive a 500 Internal Server Error response.
 
-### - GET History of specefic City
+### GET History of specefic City
 
 #### GET `/api/weather/histroy?city=[cityName]`
 
