@@ -36,18 +36,28 @@ namespace WeatherCheckApi.Infrastructure.Repositories
         public async Task<bool> UpdateUserAsync(User user)
         {
             _dataContext.Users.Update(user);
-            return await Save();
+            return await SaveAsync();
         }
 
         public async Task<User> GetUserAsync(int id)
         {
             return await _dataContext.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
-        public async Task<bool> Save()
+
+        public async Task<bool> DeleteUserTokenAsync(User user)
+        {
+            user.Token = null;
+            _dataContext.Users.Update(user);
+            return await SaveAsync();
+        }
+
+        public async Task<bool> SaveAsync()
         {
             var saved = await _dataContext.SaveChangesAsync();
             return saved > 0;
 
         }
+
+        
     }
 }

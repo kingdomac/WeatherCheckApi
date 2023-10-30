@@ -37,6 +37,13 @@ Use the token for subsequent requests to authenticate the user.
 
 After a successful login, you will receive an authentication token. To access protected endpoints and authenticate your requests, include the token in the request header with the key "**Auth-Api-Key**".
 
+#### POST `/api/logout`
+It will delete the authenticated user Token.
+
+- **Response (204 No Content):**
+  
+- **Response (500 Internal Server Error):**
+
 
 ### Current Weather
 

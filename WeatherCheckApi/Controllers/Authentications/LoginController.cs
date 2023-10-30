@@ -6,15 +6,15 @@ using WeatherCheckApi.Domain.Interfaces;
 using WeatherCheckApi.Requests;
 using WeatherCheckApi.Utility.Helpers;
 
-namespace WeatherCheckApi.Controllers
+namespace WeatherCheckApi.Controllers.Authentications
 {
     [Route("api/login")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class LoginController : ControllerBase
     {
         private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
-        public AuthController(IUserRepo userRepo, IMapper mapper)
+        public LoginController(IUserRepo userRepo, IMapper mapper)
         {
             _userRepo = userRepo;
             _mapper = mapper;

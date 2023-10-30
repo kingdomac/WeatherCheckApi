@@ -14,5 +14,6 @@ namespace WeatherCheckApi.Application.Constants
         public const string CreationFailed = "creation failed";
         public const string ApiKeyMissing = "API key is missing";
         public const string InvalidApiKey = "Invalid API key";
+        
     }
 }

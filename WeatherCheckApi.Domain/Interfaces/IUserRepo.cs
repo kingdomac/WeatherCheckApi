@@ -15,6 +15,8 @@ namespace WeatherCheckApi.Domain.Interfaces
 
         Task<bool> UpdateUserAsync(User user);
 
-        Task<bool> Save();
+        Task<bool> DeleteUserTokenAsync(User user);
+
+        Task<bool> SaveAsync();
     }
 }
