@@ -16,17 +16,22 @@ namespace WeatherCheckApi.Controllers
     [ServiceFilter(typeof(ApiKeyAuthenticationFilter))]
     public class WeatherController : ControllerBase
     {
-        private readonly IWeatherApiRepo _weatherApiRepo;
         private readonly IWeatherRepo _weatherRepo;
         private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
+        private readonly WeatherApiService _weahterApiService;
 
-        public WeatherController(IWeatherApiRepo weatherApiRepo, DataContext dataContext, IWeatherRepo weatherRepo, IUserRepo userRepo, IMapper mapper)
+        public WeatherController(DataContext dataContext,
+            IWeatherRepo weatherRepo,
+            IUserRepo userRepo,
+            IMapper mapper,
+            WeatherApiService weahterApiService
+            )
         {
-            _weatherApiRepo = weatherApiRepo;
             _weatherRepo = weatherRepo;
             _userRepo = userRepo;
             _mapper = mapper;
+            _weahterApiService = weahterApiService;
         }
 
         [HttpGet("current")]
@@ -38,7 +43,7 @@ namespace WeatherCheckApi.Controllers
 
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var response = await _weatherApiRepo.GetWeatherByCity(city);
+            var response = await _weahterApiService.GetWeatherByCity(city);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -53,7 +58,7 @@ namespace WeatherCheckApi.Controllers
             if (responseContent is null) return NotFound();
 
             var weatherApiResponseDeserialized = WeatherApiService.Deserialize(responseContent);
-            
+
             var weatherResponse = WeatherApiService.MapResponseToApiDto(weatherApiResponseDeserialized);
 
             return Ok(weatherResponse);

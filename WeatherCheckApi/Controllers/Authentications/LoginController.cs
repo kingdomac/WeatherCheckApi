@@ -4,6 +4,7 @@ using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Application.DTO;
 using WeatherCheckApi.Domain.Interfaces;
 using WeatherCheckApi.Requests;
+using WeatherCheckApi.Services;
 using WeatherCheckApi.Utility.Helpers;
 
 namespace WeatherCheckApi.Controllers.Authentications

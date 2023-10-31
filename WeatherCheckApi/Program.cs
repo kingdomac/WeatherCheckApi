@@ -6,6 +6,7 @@ using WeatherCheckApi.Filters;
 using WeatherCheckApi.Infrastructure.Data.DB;
 using WeatherCheckApi.Infrastructure.Repositories;
 using WeatherCheckApi.Mapper;
+using WeatherCheckApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +19,7 @@ builder.Services.AddAutoMapper(typeof(PresentationMappingProfile));
 
 
 builder.Services.AddScoped<ApiKeyAuthenticationFilter>();
-builder.Services.AddScoped<IWeatherApiRepo, WeatherApiRepo>();
+builder.Services.AddScoped<WeatherApiService>();
 builder.Services.AddScoped<IWeatherRepo, WeatherRepo>();
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 
