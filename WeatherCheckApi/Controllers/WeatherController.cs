@@ -57,9 +57,9 @@ namespace WeatherCheckApi.Controllers
 
             if (responseContent is null) return NotFound();
 
-            var weatherApiResponseDeserialized = WeatherApiService.Deserialize(responseContent);
+            var weatherApiResponseDeserialized = _weahterApiService.Deserialize(responseContent);
 
-            var weatherResponse = WeatherApiService.MapResponseToApiDto(weatherApiResponseDeserialized);
+            var weatherResponse = _weahterApiService.MapResponseToApiDto(weatherApiResponseDeserialized);
 
             return Ok(weatherResponse);
 

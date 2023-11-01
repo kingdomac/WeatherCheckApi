@@ -18,7 +18,7 @@ namespace WeatherCheckApi.Services
             return response;
         }
 
-        public static WeatherApiDto MapResponseToApiDto(WeatherApiResponse response)
+        public  WeatherApiDto MapResponseToApiDto(WeatherApiResponse response)
         {
             var weatherResponse = new WeatherApiDto
             {
@@ -33,7 +33,7 @@ namespace WeatherCheckApi.Services
 
         }
 
-        public static WeatherApiResponse Deserialize(string stringResponse)
+        public  WeatherApiResponse Deserialize(string stringResponse)
         {
             var options = new JsonSerializerOptions
             {
