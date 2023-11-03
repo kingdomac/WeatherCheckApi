@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Domain.Entities;
 using WeatherCheckApi.Domain.Interfaces;
 using WeatherCheckApi.Filters;
