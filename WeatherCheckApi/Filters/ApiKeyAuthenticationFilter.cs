@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Infrastructure.Data.DB;
+using WeatherCheckApi.Responses;
 
 namespace WeatherCheckApi.Filters
 {
@@ -20,10 +21,15 @@ namespace WeatherCheckApi.Filters
 
             if (!context.HttpContext.Request.Headers.TryGetValue(AuthConstants.ApiKeyHeaderName, out var extractedApiKey))
             {
-                context.Result = new UnauthorizedObjectResult(new { Error = MessageConstants.ApiKeyMissing });
+                context.Result = new UnauthorizedObjectResult(new UnauthorizationResponse(MessageConstants.ApiKeyMissing));
                 return;
             }
 
+            if(extractedApiKey.ToString() == string.Empty)
+            {
+                context.Result = new UnauthorizedObjectResult(new UnauthorizationResponse(MessageConstants.ApiKeyMissing));
+                return;
+            }
 
             var extractedApiKeyToBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(extractedApiKey.ToString()));
 
@@ -31,7 +37,7 @@ namespace WeatherCheckApi.Filters
 
             if (user == null)
             {
-                context.Result = new UnauthorizedObjectResult(new { Error = MessageConstants.InvalidApiKey });
+                context.Result = new UnauthorizedObjectResult(new UnauthorizationResponse(MessageConstants.InvalidApiKey));
                 return;
             }
 

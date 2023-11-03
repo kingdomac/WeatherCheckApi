@@ -6,6 +6,7 @@ using WeatherCheckApi.Filters;
 using WeatherCheckApi.Infrastructure.Data.DB;
 using WeatherCheckApi.Infrastructure.Repositories;
 using WeatherCheckApi.Mapper;
+using WeatherCheckApi.Middlewares;
 using WeatherCheckApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -71,6 +72,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseProblemDetailsExceptionHandler();
 
 app.UseHttpsRedirection();
 

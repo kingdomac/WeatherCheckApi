@@ -33,6 +33,16 @@ To use this API, you can send a POST request to the /api/login endpoint with a v
 Upon successful login, you will receive a response with the user's ID, email, and a token.
 Use the token for subsequent requests to authenticate the user.
 
+#### 401 Unauthorized 
+Exception will thrown if the Token was missing or invalid: 
+
+    ```json
+    {
+      "title": "Unauthorized",
+      "status": 401,
+      "error": "API key is missing"
+    }
+
 ### Using the Authentication Token
 
 After a successful login, you will receive an authentication token. To access protected endpoints and authenticate your requests, include the token in the request header with the key "**Auth-Api-Key**".

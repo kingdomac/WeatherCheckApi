@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCheckApi", "WeatherCheckApi.csproj", "{EAEF17FE-D935-462F-86CD-988C7859689E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherCheckApi", "WeatherCheckApi.csproj", "{EAEF17FE-D935-462F-86CD-988C7859689E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCheckApi.Domain", "..\WeatherCheckApi.Domain\WeatherCheckApi.Domain.csproj", "{5E4B4ECF-C963-4E6B-8894-5F44C2DD05D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherCheckApi.Domain", "..\WeatherCheckApi.Domain\WeatherCheckApi.Domain.csproj", "{5E4B4ECF-C963-4E6B-8894-5F44C2DD05D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCheckApi.Application", "..\WeatherCheckApi.Application\WeatherCheckApi.Application.csproj", "{6BAFEFAA-0AD7-4438-8654-26CA4DFD2139}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherCheckApi.Application", "..\WeatherCheckApi.Application\WeatherCheckApi.Application.csproj", "{6BAFEFAA-0AD7-4438-8654-26CA4DFD2139}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCheckApi.Infrastructure", "..\WeatherCheckApi.Infrastructure\WeatherCheckApi.Infrastructure.csproj", "{5FD40BE3-54D5-4A3B-B96B-CE7C9A04AEDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherCheckApi.Infrastructure", "..\WeatherCheckApi.Infrastructure\WeatherCheckApi.Infrastructure.csproj", "{5FD40BE3-54D5-4A3B-B96B-CE7C9A04AEDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCheckApi.Utility", "..\WeatherCheckApi.Utility\WeatherCheckApi.Utility.csproj", "{F69806A4-4A23-4998-804F-EC547682B866}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherCheckApi.Utility", "..\WeatherCheckApi.Utility\WeatherCheckApi.Utility.csproj", "{F69806A4-4A23-4998-804F-EC547682B866}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherCheckApi.Test", "..\WeatherCheckApi.Test\WeatherCheckApi.Test.csproj", "{1B905994-4201-4808-ACEE-548B3FBEDE1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F69806A4-4A23-4998-804F-EC547682B866}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F69806A4-4A23-4998-804F-EC547682B866}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F69806A4-4A23-4998-804F-EC547682B866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B905994-4201-4808-ACEE-548B3FBEDE1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B905994-4201-4808-ACEE-548B3FBEDE1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B905994-4201-4808-ACEE-548B3FBEDE1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B905994-4201-4808-ACEE-548B3FBEDE1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

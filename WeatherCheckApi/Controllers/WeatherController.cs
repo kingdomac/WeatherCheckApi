@@ -38,6 +38,7 @@ namespace WeatherCheckApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(WeatherApiDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetWeatherOfCity([FromQuery] string city)
         {
 
@@ -68,6 +69,8 @@ namespace WeatherCheckApi.Controllers
         [HttpPost("current")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(WeatherDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+
         public async Task<IActionResult> CreateWeatherOfCity(CreateWeatherRequest weatherCreate)
         {
             //var weatherModel = WeatherMapper.MapCreateRequestToModel(weather);
@@ -94,6 +97,7 @@ namespace WeatherCheckApi.Controllers
         [HttpGet("history")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<WeatherDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetWeatherHistoryOfCityAsync([FromQuery] string city)
         {
             if (!ModelState.IsValid || city == null) return BadRequest(ModelState);
