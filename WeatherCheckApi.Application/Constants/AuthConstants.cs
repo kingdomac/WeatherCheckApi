@@ -9,6 +9,6 @@ namespace WeatherCheckApi.Application.Constants
     public class AuthConstants
     {
         public const string ApiKeySectionName = "Authentication:ApiKey";
-        public const string ApiKeyHeaderName = "Auth-Api-Key";
+        public const string ApiKeyHeaderName = "Authorization";
     }
 }

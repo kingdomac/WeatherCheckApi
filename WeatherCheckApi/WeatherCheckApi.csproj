@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helpers\**" />
+    <Content Remove="Helpers\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <None Remove="Helpers\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
       <PrivateAssets>all</PrivateAssets>
@@ -18,7 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="..\WeatherCheckApi.Application\WeatherCheckApi.Application.csproj" />
     <ProjectReference Include="..\WeatherCheckApi.Infrastructure\WeatherCheckApi.Infrastructure.csproj" />
-    <ProjectReference Include="..\WeatherCheckApi.Utility\WeatherCheckApi.Utility.csproj" />
   </ItemGroup>
 
 </Project>

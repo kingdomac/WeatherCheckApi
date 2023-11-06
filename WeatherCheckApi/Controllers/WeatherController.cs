@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Security.Claims;
 using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Application.DTO;
 using WeatherCheckApi.Domain.Entities;
 using WeatherCheckApi.Domain.Interfaces;
-using WeatherCheckApi.Filters;
+using WeatherCheckApi.Exceptions;
 using WeatherCheckApi.Infrastructure.Data.DB;
 using WeatherCheckApi.Requests;
 using WeatherCheckApi.Services;
@@ -13,25 +17,29 @@ namespace WeatherCheckApi.Controllers
 {
     [Route("api/weather")]
     [ApiController]
-    [ServiceFilter(typeof(ApiKeyAuthenticationFilter))]
+    [Authorize]
+    //[ServiceFilter(typeof(ApiKeyAuthenticationFilter))]
     public class WeatherController : ControllerBase
     {
         private readonly IWeatherRepo _weatherRepo;
-        private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
-        private readonly WeatherApiService _weahterApiService;
+        private readonly IWeatherApi _weatherApi;
+        private readonly WeatherApiService _weatherApiService;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public WeatherController(DataContext dataContext,
             IWeatherRepo weatherRepo,
-            IUserRepo userRepo,
             IMapper mapper,
-            WeatherApiService weahterApiService
-            )
+            IWeatherApi weatherApi,
+            WeatherApiService weatherApiService
+,
+            UserManager<IdentityUser> userManager)
         {
             _weatherRepo = weatherRepo;
-            _userRepo = userRepo;
             _mapper = mapper;
-            _weahterApiService = weahterApiService;
+            _weatherApi = weatherApi;
+            _weatherApiService = weatherApiService;
+            _userManager = userManager;
         }
 
         [HttpGet("current")]
@@ -44,7 +52,7 @@ namespace WeatherCheckApi.Controllers
 
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var response = await _weahterApiService.GetWeatherByCity(city);
+            var response = await _weatherApi.GetWeatherByCity(city);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -58,9 +66,9 @@ namespace WeatherCheckApi.Controllers
 
             if (responseContent is null) return NotFound();
 
-            var weatherApiResponseDeserialized = _weahterApiService.Deserialize(responseContent);
+            var weatherApiResponseDeserialized = _weatherApiService.Deserialize(responseContent);
 
-            var weatherResponse = _weahterApiService.MapResponseToApiDto(weatherApiResponseDeserialized);
+            var weatherResponse = _weatherApiService.MapResponseToApiDto(weatherApiResponseDeserialized);
 
             return Ok(weatherResponse);
 
@@ -68,24 +76,28 @@ namespace WeatherCheckApi.Controllers
 
         [HttpPost("current")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(WeatherDto))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
 
         public async Task<IActionResult> CreateWeatherOfCity(CreateWeatherRequest weatherCreate)
         {
-            //var weatherModel = WeatherMapper.MapCreateRequestToModel(weather);
+            
             var weatherModel = _mapper.Map<Weather>(weatherCreate);
+            
+            var identityUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var identityUser = await _userManager.FindByIdAsync(identityUserId ?? "");
 
-            var currentUser = HttpContext.Items["User"] as User;
-
-            weatherModel.User = await _userRepo.GetUserAsync(currentUser.Id);
+            weatherModel.User = identityUser ?? new IdentityUser();
 
             var isCreated = await _weatherRepo.CreateHistoryAsync(weatherModel);
 
             if (!isCreated)
             {
-                ModelState.AddModelError("", MessageConstants.CreationFailed);
-                return StatusCode(StatusCodes.Status500InternalServerError, ModelState);
+                var errors = new Dictionary<string, string[]> {
+                    {"Error", new[] { MessageConstants.InvalidEmailAddress } }
+                };
+                throw new ApiException(HttpStatusCode.InternalServerError, MessageConstants.CreationFailed, errors);
+                
             }
 
             var weatherDto = _mapper.Map<WeatherDto>(weatherModel);
@@ -102,9 +114,9 @@ namespace WeatherCheckApi.Controllers
         {
             if (!ModelState.IsValid || city == null) return BadRequest(ModelState);
 
-            var currentUser = HttpContext.Items["User"] as User;
+            var identityUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "";
 
-            var weathers = await _weatherRepo.GetHistoryOfCityAsync(city, currentUser.Id);
+            var weathers = await _weatherRepo.GetHistoryOfCityAsync(city, identityUserId);
 
             // Create a collection of WeatherDto objects by mapping the data
             var weatherDtos = _mapper.Map<List<WeatherDto>>(weathers);

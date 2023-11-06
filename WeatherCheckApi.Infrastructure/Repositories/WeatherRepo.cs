@@ -24,7 +24,7 @@ namespace WeatherCheckApi.Infrastructure.Repositories
             return await saveAsync();
         }
 
-        public async Task<ICollection<Weather>> GetHistoryOfCityAsync(string city, int userId)
+        public async Task<ICollection<Weather>> GetHistoryOfCityAsync(string city, string userId)
         {
             return await _dataContext.Weathers
                 .Where(w => w.CityName.Trim().ToLower().Contains(city.Trim().ToLower()) && w.User.Id == userId)

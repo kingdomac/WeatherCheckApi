@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Application.DTO;
-using WeatherCheckApi.Domain.Interfaces;
 using WeatherCheckApi.Exceptions;
+using WeatherCheckApi.Interfaces;
 using WeatherCheckApi.Requests;
-using WeatherCheckApi.Services;
-using WeatherCheckApi.Utility.Helpers;
+using WeatherCheckApi.Responses;
 
 namespace WeatherCheckApi.Controllers.Authentications
 {
@@ -15,57 +14,37 @@ namespace WeatherCheckApi.Controllers.Authentications
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IUserRepo _userRepo;
         private readonly IMapper _mapper;
-        public LoginController(IUserRepo userRepo, IMapper mapper)
+
+        private readonly IAuthService _authService;
+        public LoginController(IMapper mapper, IAuthService authService)
         {
-            _userRepo = userRepo;
+
             _mapper = mapper;
+            _authService = authService;
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        public async Task<IActionResult> Login(LoginRequest user)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var user = await _userRepo.GetUserByEmailAsync(loginRequest.Email);
+            var (identityUser, success) = await _authService.Login(user);
 
-            if (user == null) {
-                var errors = new Dictionary<string, string[]> {
-                    {"Email", new[] { MessageConstants.InvalidEmailAddress } }
-                };
-                throw new ApiException(HttpStatusCode.BadRequest, "Invalid creadentials", errors);
-
-            }
-
-            if (!PasswordHelper.Verify(loginRequest.Password, user.Password)) {
-                var errors = new Dictionary<string, string[]> {
-                    {"Email", new[] { MessageConstants.InvalidEmailAddress } }
-                };
-                throw new ApiException(HttpStatusCode.BadRequest, "Invalid creadentials", errors);
-            } 
-
-            string token = TokenHelper.Generate();
-
-            // Token encoding
-            var tokenEncoded = TokenHelper.Encode(token);
-            user.Token = tokenEncoded;
-
-            var isUpdated = await _userRepo.UpdateUserAsync(user);
-
-            if (!isUpdated)
+            if (!success)
             {
-                ModelState.AddModelError("", MessageConstants.InternalServerError);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                var errors = new Dictionary<string, string[]> {
+                    {"Email", new[] { MessageConstants.InvalidEmailAddress } }
+                };
+                throw new ApiException(HttpStatusCode.BadRequest, MessageConstants.InvalidCredentials, errors);
             }
 
-            var userDto = _mapper.Map<UserDto>(user);
-            userDto.Token = token;
+            var tokenString = _authService.GenerateTokenString(identityUser);
 
-            return Ok(userDto);
+            return Ok(new LoginSuccessResponse(MessageConstants.LoginSuccess, tokenString));
         }
     }
 }

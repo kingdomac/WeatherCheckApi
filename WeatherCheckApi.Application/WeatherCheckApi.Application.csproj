@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WeatherCheckApi.Domain\WeatherCheckApi.Domain.csproj" />
-    <ProjectReference Include="..\WeatherCheckApi.Utility\WeatherCheckApi.Utility.csproj" />
   </ItemGroup>
 
 </Project>

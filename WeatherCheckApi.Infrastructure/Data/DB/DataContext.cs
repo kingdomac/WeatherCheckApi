@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,19 @@ namespace WeatherCheckApi.Infrastructure.Data.DB
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+        //private readonly IConfiguration _configuration;
+        public DataContext(DbContextOptions<DataContext> options) : base(options) {
+           
+        }
 
         public DbSet<Weather> Weathers { get; set; }
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Data Source=LENOVO-PC\\SQLEXPRESS;Initial Catalog=weatherdb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    base.OnConfiguring(optionsBuilder);
+        //    optionsBuilder.UseSqlServer(_configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

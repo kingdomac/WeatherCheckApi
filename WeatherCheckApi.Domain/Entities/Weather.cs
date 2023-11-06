@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace WeatherCheckApi.Domain.Entities
 
         public DateTime CreatedAt;
 
-        public User? User { get; set; }
+        //public User? User { get; set; }
+        public required IdentityUser User { get; set; }
     }
 }

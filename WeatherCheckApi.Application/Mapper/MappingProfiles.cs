@@ -14,7 +14,6 @@ namespace WeatherCheckApi.Application.Mapper
         public MappingProfiles()
         {
 
-            CreateMap<User, UserDto>();
             CreateMap<Weather, WeatherDto>();
 
         }

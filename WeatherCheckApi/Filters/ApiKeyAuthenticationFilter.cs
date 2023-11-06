@@ -33,15 +33,15 @@ namespace WeatherCheckApi.Filters
 
             var extractedApiKeyToBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(extractedApiKey.ToString()));
 
-            var user = _dataContext.Users.Where(u => u.Token == extractedApiKeyToBase64).FirstOrDefault();
+            //var user = _dataContext.Users.Where(u => u.Token == extractedApiKeyToBase64).FirstOrDefault();
 
-            if (user == null)
-            {
-                context.Result = new UnauthorizedObjectResult(new UnauthorizationResponse(MessageConstants.InvalidApiKey));
-                return;
-            }
+            //if (user == null)
+            //{
+            //    context.Result = new UnauthorizedObjectResult(new UnauthorizationResponse(MessageConstants.InvalidApiKey));
+            //    return;
+            //}
 
-            context.HttpContext.Items["User"] = user;
+            //context.HttpContext.Items["User"] = user;
 
         }
     }

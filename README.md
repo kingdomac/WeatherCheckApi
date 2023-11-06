@@ -15,10 +15,11 @@ WeatherCheckApi is an API that allows users to check and save current weather co
 - **Response (200 OK):**
   ```json
   {
-    "id": 0,
-    "email": "string",
-    "token": "string"
-  }
+  "title": "Success",
+  "status": 200,
+  "message": "You are logged in successfully",
+  "token": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIyYzQwNGMzLWQzY2MtNGRkMy1hZTJmLTI3ZmI0ODIyZWJmNSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InVzZXJAbWFpbC5jb20iLCJleHAiOjE2OTkzMDk4MTMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTIxNSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTIxNSJ9.Yv3NfvrI2F8UPm0s2oxdcofQypkrj3WtJUSUN9fDQDxPYk8kTXMpoefAplQyP-d1V1tBK5UE68z9n4X-9rQ31g"
+}
 
 - **Response (400 Bad Request):**
 
@@ -30,22 +31,16 @@ In the case of internal server errors, you will receive a 500 Internal Server Er
 
 ## Usage
 To use this API, you can send a POST request to the /api/login endpoint with a valid email and password.
-Upon successful login, you will receive a response with the user's ID, email, and a token.
+Upon successful login, you will receive a response with  a Bearer token.
 Use the token for subsequent requests to authenticate the user.
 
 #### 401 Unauthorized 
 Exception will thrown if the Token was missing or invalid: 
 
-    ```json
-    {
-      "title": "Unauthorized",
-      "status": 401,
-      "error": "API key is missing"
-    }
 
 ### Using the Authentication Token
 
-After a successful login, you will receive an authentication token. To access protected endpoints and authenticate your requests, include the token in the request header with the key "**Auth-Api-Key**".
+After a successful login, you will receive an authentication Bearer token. To access protected endpoints and authenticate your requests, include the token in the request header with the key "**Authorization**".
 
 #### POST `/api/logout`
 It will delete the authenticated user Token.

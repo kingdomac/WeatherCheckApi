@@ -9,7 +9,7 @@ namespace WeatherCheckApi.Domain.Interfaces
 {
     public interface IWeatherRepo
     {
-        Task<ICollection<Weather>> GetHistoryOfCityAsync(string city, int userId);
+        Task<ICollection<Weather>> GetHistoryOfCityAsync(string city, string userId);
         Task<bool> CreateHistoryAsync(Weather weather);
         Task<bool> saveAsync();
     }
