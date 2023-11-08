@@ -12,7 +12,7 @@ using WeatherCheckApi.Exceptions;
 using WeatherCheckApi.Infrastructure.Data.DB;
 using WeatherCheckApi.Services;
 
-namespace WeatherCheckApi.Controllers
+namespace WeatherCheckApi.Controllers.Weathers
 {
     [Route("api/weather")]
     [ApiController]
@@ -80,9 +80,9 @@ namespace WeatherCheckApi.Controllers
 
         public async Task<IActionResult> CreateWeatherOfCity(CreateWeatherDto weatherCreate)
         {
-            
+
             var weatherModel = _mapper.Map<Weather>(weatherCreate);
-            
+
             var identityUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var identityUser = await _userManager.FindByIdAsync(identityUserId ?? "");
 
@@ -96,7 +96,7 @@ namespace WeatherCheckApi.Controllers
                     {"Error", new[] { MessageConstants.InvalidEmailAddress } }
                 };
                 throw new ApiException(HttpStatusCode.InternalServerError, MessageConstants.CreationFailed, errors);
-                
+
             }
 
             var weatherDto = _mapper.Map<WeatherDto>(weatherModel);
