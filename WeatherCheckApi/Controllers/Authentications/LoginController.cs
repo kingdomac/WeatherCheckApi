@@ -5,7 +5,6 @@ using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Application.DTO;
 using WeatherCheckApi.Exceptions;
 using WeatherCheckApi.Interfaces;
-using WeatherCheckApi.Requests;
 using WeatherCheckApi.Responses;
 
 namespace WeatherCheckApi.Controllers.Authentications
@@ -28,7 +27,7 @@ namespace WeatherCheckApi.Controllers.Authentications
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Login(LoginRequest user)
+        public async Task<IActionResult> Login(LoginUserDto user)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 

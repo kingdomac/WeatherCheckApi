@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WeatherCheckApi.Application.Constants;
+using WeatherCheckApi.Application.DTO;
 using WeatherCheckApi.Interfaces;
-using WeatherCheckApi.Requests;
 using WeatherCheckApi.Responses;
 
 namespace WeatherCheckApi.Controllers.Authentications
@@ -18,7 +18,7 @@ namespace WeatherCheckApi.Controllers.Authentications
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(LoginRequest user)
+        public async Task<IActionResult> Register(LoginUserDto user)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 

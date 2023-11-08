@@ -10,7 +10,6 @@ using WeatherCheckApi.Domain.Interfaces;
 using WeatherCheckApi.Infrastructure.Data.DB;
 using WeatherCheckApi.Infrastructure.Repositories;
 using WeatherCheckApi.Interfaces;
-using WeatherCheckApi.Mapper;
 using WeatherCheckApi.Middlewares;
 using WeatherCheckApi.Providers;
 using WeatherCheckApi.Services;
@@ -60,7 +59,6 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
-builder.Services.AddAutoMapper(typeof(PresentationMappingProfile));
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 //builder.Services.AddScoped<ApiKeyAuthenticationFilter>();

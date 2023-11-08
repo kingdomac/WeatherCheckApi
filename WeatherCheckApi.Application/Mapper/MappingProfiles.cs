@@ -14,7 +14,8 @@ namespace WeatherCheckApi.Application.Mapper
         public MappingProfiles()
         {
 
-            CreateMap<Weather, WeatherDto>();
+            CreateMap<Weather, WeatherDto>().ReverseMap();
+            CreateMap<CreateWeatherDto, Weather>().ReverseMap();
 
         }
     }

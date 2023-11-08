@@ -10,7 +10,6 @@ using WeatherCheckApi.Domain.Entities;
 using WeatherCheckApi.Domain.Interfaces;
 using WeatherCheckApi.Exceptions;
 using WeatherCheckApi.Infrastructure.Data.DB;
-using WeatherCheckApi.Requests;
 using WeatherCheckApi.Services;
 
 namespace WeatherCheckApi.Controllers
@@ -79,7 +78,7 @@ namespace WeatherCheckApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
 
-        public async Task<IActionResult> CreateWeatherOfCity(CreateWeatherRequest weatherCreate)
+        public async Task<IActionResult> CreateWeatherOfCity(CreateWeatherDto weatherCreate)
         {
             
             var weatherModel = _mapper.Map<Weather>(weatherCreate);

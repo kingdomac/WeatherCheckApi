@@ -3,8 +3,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using WeatherCheckApi.Application.DTO;
 using WeatherCheckApi.Interfaces;
-using WeatherCheckApi.Requests;
 
 namespace WeatherCheckApi.Services
 {
@@ -19,7 +19,7 @@ namespace WeatherCheckApi.Services
             _config = config;
         }
 
-        public async Task<bool> Register(LoginRequest user)
+        public async Task<bool> Register(LoginUserDto user)
         {
             var identityUSer = new IdentityUser
             {
@@ -32,7 +32,7 @@ namespace WeatherCheckApi.Services
             return result.Succeeded;
         }
 
-        public async Task<(IdentityUser identityUser, bool success)> Login(LoginRequest user)
+        public async Task<(IdentityUser identityUser, bool success)> Login(LoginUserDto user)
         {
 
             var identityUser = await _userManager.FindByEmailAsync(user.Email);
