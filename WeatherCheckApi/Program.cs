@@ -7,11 +7,11 @@ using System.Text;
 using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Application.Mapper;
 using WeatherCheckApi.Domain.Interfaces;
+using WeatherCheckApi.Infrastructure.Adapters;
 using WeatherCheckApi.Infrastructure.Data.DB;
 using WeatherCheckApi.Infrastructure.Repositories;
 using WeatherCheckApi.Interfaces;
 using WeatherCheckApi.Middlewares;
-using WeatherCheckApi.Providers;
 using WeatherCheckApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,10 +50,10 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:Key").Value)),
 
-        
+
     };
 
-    
+
 });
 
 builder.Services.AddControllers();
@@ -64,7 +64,9 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 //builder.Services.AddScoped<ApiKeyAuthenticationFilter>();
 builder.Services.AddScoped<WeatherApiService>();
 builder.Services.AddScoped<IWeatherRepo, WeatherRepo>();
-builder.Services.AddScoped<IWeatherApi, WeatherApiProvider>();
+//builder.Services.AddScoped<IWeatherApi, WeatherApiProvider>();
+builder.Services.AddScoped<IWeatherApi, WeatherApiAdapter>();
+builder.Services.AddScoped<IWeatherApiProvider, WeatherApiProvider>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

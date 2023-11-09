@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using WeatherCheckApi.Application.DTO;
-using WeatherCheckApi.Domain.Interfaces;
 using WeatherCheckApi.Responses;
 
 namespace WeatherCheckApi.Services

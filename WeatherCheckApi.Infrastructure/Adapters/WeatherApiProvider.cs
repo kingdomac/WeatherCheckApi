@@ -1,8 +1,8 @@
 ﻿using WeatherCheckApi.Domain.Interfaces;
 
-namespace WeatherCheckApi.Providers
+namespace WeatherCheckApi.Infrastructure.Adapters
 {
-    public class WeatherApiProvider : IWeatherApi
+    public class WeatherApiProvider : IWeatherApiProvider
     {
         private readonly string _apiKey = "9086fdede1e048cd8c5180347232510";
         private readonly HttpClient _httpClient;
@@ -20,7 +20,5 @@ namespace WeatherCheckApi.Providers
 
             return response;
         }
-
-
     }
 }
