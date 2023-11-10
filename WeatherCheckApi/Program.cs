@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Application.Mapper;
+using WeatherCheckApi.Domain.Entities;
 using WeatherCheckApi.Domain.Interfaces;
 using WeatherCheckApi.Infrastructure.Adapters;
 using WeatherCheckApi.Infrastructure.Data.DB;
@@ -22,7 +23,7 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
 });
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequiredLength = 6;
     options.Password.RequireNonAlphanumeric = false;

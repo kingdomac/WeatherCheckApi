@@ -4,16 +4,17 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using WeatherCheckApi.Application.DTO;
+using WeatherCheckApi.Domain.Entities;
 using WeatherCheckApi.Interfaces;
 
 namespace WeatherCheckApi.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _config;
 
-        public AuthService(UserManager<IdentityUser> userManager, IConfiguration config)
+        public AuthService(UserManager<ApplicationUser> userManager, IConfiguration config)
         {
             _userManager = userManager;
             _config = config;
@@ -21,7 +22,7 @@ namespace WeatherCheckApi.Services
 
         public async Task<bool> Register(LoginUserDto user)
         {
-            var identityUSer = new IdentityUser
+            var identityUSer = new ApplicationUser
             {
                 UserName = user.Email,
                 Email = user.Email
@@ -32,26 +33,26 @@ namespace WeatherCheckApi.Services
             return result.Succeeded;
         }
 
-        public async Task<(IdentityUser identityUser, bool success)> Login(LoginUserDto user)
+        public async Task<(ApplicationUser identityUser, bool success)> Login(LoginUserDto user)
         {
 
             var identityUser = await _userManager.FindByEmailAsync(user.Email);
             if (identityUser is null)
             {
-                return (new IdentityUser(), false);
+                return (new ApplicationUser(), false);
             }
             var isPasswordValid = await _userManager.CheckPasswordAsync(identityUser, user.Password);
             if (!isPasswordValid)
             {
-                return (new IdentityUser(), false);
+                return (new ApplicationUser(), false);
             }
 
             return (identityUser, isPasswordValid);
         }
 
-        public string GenerateTokenString(IdentityUser user)
+        public string GenerateTokenString(ApplicationUser user)
         {
-            IEnumerable<System.Security.Claims.Claim> claims = new List<Claim>
+            IEnumerable<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Email, user.Email),

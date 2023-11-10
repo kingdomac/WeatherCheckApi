@@ -13,13 +13,11 @@ namespace WeatherCheckApi.Controllers.Authentications
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IMapper _mapper;
 
         private readonly IAuthService _authService;
-        public LoginController(IMapper mapper, IAuthService authService)
+        public LoginController(IAuthService authService)
         {
 
-            _mapper = mapper;
             _authService = authService;
         }
 

@@ -24,7 +24,7 @@ namespace WeatherCheckApi.Controllers.Weathers
         private readonly IMapper _mapper;
         private readonly IWeatherApi _weatherApi;
         private readonly WeatherApiService _weatherApiService;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public WeatherController(DataContext dataContext,
             IWeatherRepo weatherRepo,
@@ -32,7 +32,7 @@ namespace WeatherCheckApi.Controllers.Weathers
             IWeatherApi weatherApi,
             WeatherApiService weatherApiService
 ,
-            UserManager<IdentityUser> userManager)
+            UserManager<ApplicationUser> userManager)
         {
             _weatherRepo = weatherRepo;
             _mapper = mapper;
@@ -86,7 +86,7 @@ namespace WeatherCheckApi.Controllers.Weathers
             var identityUserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var identityUser = await _userManager.FindByIdAsync(identityUserId ?? "");
 
-            weatherModel.User = identityUser ?? new IdentityUser();
+            weatherModel.User = identityUser ?? new ApplicationUser();
 
             var isCreated = await _weatherRepo.CreateHistoryAsync(weatherModel);
 

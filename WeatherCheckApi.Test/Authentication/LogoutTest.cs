@@ -4,16 +4,16 @@ namespace WeatherCheckApi.Test.Authentication
 {
     public class LogoutTest
     {
-        private readonly HttpClient _client;
-        private readonly string? _token = "fc78bf14287c40bb805316c8433670a5";
+        //private readonly HttpClient _client;
+        //private readonly string? _token = "fc78bf14287c40bb805316c8433670a5";
 
-        public LogoutTest()
-        {
-            _client = new HttpClient
-            {
-                BaseAddress = new Uri(Shared.BaseAddress) // Update with your API's base URL
-            };
-        }
+        //public LogoutTest()
+        //{
+        //    _client = new HttpClient
+        //    {
+        //        BaseAddress = new Uri(Shared.BaseAddress) // Update with your API's base URL
+        //    };
+        //}
 
         //[Fact]
         //public async Task Logout_ShouldReturnOk_WhenValidCredentials()

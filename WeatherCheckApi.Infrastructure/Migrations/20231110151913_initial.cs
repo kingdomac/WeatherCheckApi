@@ -12,7 +12,7 @@ namespace WeatherCheckApi.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "IdentityUser",
+                name: "ApplicationUser",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -33,7 +33,7 @@ namespace WeatherCheckApi.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IdentityUser", x => x.Id);
+                    table.PrimaryKey("PK_ApplicationUser", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -54,9 +54,9 @@ namespace WeatherCheckApi.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Weathers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Weathers_IdentityUser_UserId",
+                        name: "FK_Weathers_ApplicationUser_UserId",
                         column: x => x.UserId,
-                        principalTable: "IdentityUser",
+                        principalTable: "ApplicationUser",
                         principalColumn: "Id");
                 });
 
@@ -73,7 +73,7 @@ namespace WeatherCheckApi.Infrastructure.Migrations
                 name: "Weathers");
 
             migrationBuilder.DropTable(
-                name: "IdentityUser");
+                name: "ApplicationUser");
         }
     }
 }

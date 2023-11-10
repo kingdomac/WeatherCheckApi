@@ -21,6 +21,6 @@ namespace WeatherCheckApi.Domain.Entities
         public DateTime CreatedAt;
 
         //public User? User { get; set; }
-        public required IdentityUser User { get; set; }
+        public required ApplicationUser User { get; set; }
     }
 }

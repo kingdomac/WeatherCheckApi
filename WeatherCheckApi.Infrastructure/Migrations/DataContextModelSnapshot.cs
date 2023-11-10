@@ -22,7 +22,7 @@ namespace WeatherCheckApi.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+            modelBuilder.Entity("WeatherCheckApi.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -71,7 +71,7 @@ namespace WeatherCheckApi.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdentityUser");
+                    b.ToTable("ApplicationUser");
                 });
 
             modelBuilder.Entity("WeatherCheckApi.Domain.Entities.Weather", b =>
@@ -115,7 +115,7 @@ namespace WeatherCheckApi.Infrastructure.Migrations
 
             modelBuilder.Entity("WeatherCheckApi.Domain.Entities.Weather", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("WeatherCheckApi.Domain.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 

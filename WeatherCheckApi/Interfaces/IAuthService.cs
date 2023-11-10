@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using WeatherCheckApi.Application.DTO;
+﻿using WeatherCheckApi.Application.DTO;
+using WeatherCheckApi.Domain.Entities;
 
 namespace WeatherCheckApi.Interfaces
 {
     public interface IAuthService
     {
         Task<bool> Register(LoginUserDto user);
-        Task<(IdentityUser identityUser, bool success)> Login(LoginUserDto user);
-        string GenerateTokenString(IdentityUser user);
+        Task<(ApplicationUser identityUser, bool success)> Login(LoginUserDto user);
+        string GenerateTokenString(ApplicationUser user);
     }
 }
