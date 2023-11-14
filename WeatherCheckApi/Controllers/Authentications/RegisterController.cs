@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Application.DTO;
+using WeatherCheckApi.Exceptions;
 using WeatherCheckApi.Interfaces;
 using WeatherCheckApi.Responses;
 
@@ -21,6 +25,11 @@ namespace WeatherCheckApi.Controllers.Authentications
         public async Task<IActionResult> Register(LoginUserDto user)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            if(await _authService.CheckIfUserAlreadyxist(user))
+            {
+                return BadRequest(new {error = MessageConstants.UserAlreadyRegistered});
+            }
 
             var isRegistered = await _authService.Register(user);
 

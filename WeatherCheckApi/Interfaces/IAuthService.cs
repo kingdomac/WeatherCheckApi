@@ -8,5 +8,6 @@ namespace WeatherCheckApi.Interfaces
         Task<bool> Register(LoginUserDto user);
         Task<(ApplicationUser identityUser, bool success)> Login(LoginUserDto user);
         string GenerateTokenString(ApplicationUser user);
+        Task<bool> CheckIfUserAlreadyxist(LoginUserDto user);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using WeatherCheckApi.Application.DTO;
@@ -22,6 +23,7 @@ namespace WeatherCheckApi.Services
 
         public async Task<bool> Register(LoginUserDto user)
         {
+            
             var identityUSer = new ApplicationUser
             {
                 UserName = user.Email,
@@ -72,6 +74,16 @@ namespace WeatherCheckApi.Services
                 );
             string tokenString = new JwtSecurityTokenHandler().WriteToken(securityToken);
             return tokenString;
+        }
+
+        public async Task<bool> CheckIfUserAlreadyxist(LoginUserDto user)
+        {
+            var userDb =  await _userManager.FindByEmailAsync(user.Email);
+
+            if (userDb is not null) return true;
+
+            return false;
+            
         }
     }
 }

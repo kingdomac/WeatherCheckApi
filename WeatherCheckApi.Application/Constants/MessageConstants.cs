@@ -17,6 +17,8 @@ namespace WeatherCheckApi.Application.Constants
         public const string InvalidCredentials = "Invalid creadentials";
         public const string RegistrationSuccess = "Registration success";
         public const string LoginSuccess = "You are logged in successfully";
-        
+        public const string UserAlreadyRegistered = "User already registered";
+
+
     }
 }
