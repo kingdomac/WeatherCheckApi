@@ -3,7 +3,7 @@ using WeatherCheckApi.Domain.Entities;
 
 namespace WeatherCheckApi.Interfaces
 {
-    public interface IAuthService
+    public interface IAuthServiceProvider
     {
         Task<bool> Register(RegisterUserDto user);
         Task<(ApplicationUser identityUser, bool success)> Login(LoginUserDto user);

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WeatherCheckApi.Application.Constants;
@@ -14,8 +15,8 @@ namespace WeatherCheckApi.Controllers.Authentications
     public class LoginController : ControllerBase
     {
 
-        private readonly IAuthService _authService;
-        public LoginController(IAuthService authService)
+        private readonly IAuthServiceAdapter _authService;
+        public LoginController(IAuthServiceAdapter authService)
         {
 
             _authService = authService;
@@ -29,19 +30,18 @@ namespace WeatherCheckApi.Controllers.Authentications
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var (identityUser, success) = await _authService.Login(user);
+            string token = await _authService.Login(user);
 
-            if (!success)
+            if (string.IsNullOrEmpty(token))
             {
                 var errors = new Dictionary<string, string[]> {
-                    {"Email", new[] { MessageConstants.InvalidEmailAddress } }
-                };
+                        {"Email", new[] { MessageConstants.InvalidEmailAddress } }
+                    };
                 throw new ApiException(HttpStatusCode.BadRequest, MessageConstants.InvalidCredentials, errors);
-            }
+            };
 
-            var tokenString = _authService.GenerateTokenString(identityUser);
+            return Ok(new LoginSuccessResponse(MessageConstants.LoginSuccess, token));
 
-            return Ok(new LoginSuccessResponse(MessageConstants.LoginSuccess, tokenString));
         }
     }
 }

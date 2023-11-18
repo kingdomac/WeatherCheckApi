@@ -18,13 +18,7 @@ namespace WeatherCheckApi.Infrastructure.Data.DB
         }
 
         public DbSet<Weather> Weathers { get; set; }
-        //public DbSet<User> Users { get; set; }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    base.OnConfiguring(optionsBuilder);
-        //    optionsBuilder.UseSqlServer(_configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
-        //}
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

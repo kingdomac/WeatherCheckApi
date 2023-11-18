@@ -20,52 +20,36 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-{
-    options.Password.RequiredLength = 6;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
-}).AddEntityFrameworkStores<DataContext>()
-.AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateActor = true,
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        RequireExpirationTime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration.GetSection("Jwt:Issuer").Value,
-        ValidAudience = builder.Configuration.GetSection("Jwt:Audience").Value,
-        IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt:Key").Value)),
+builder.Services.AddAuthentication("Bearer")
+            .AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = builder.Configuration.GetSection("IdentityServer:Authority").Value;
 
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = true,
+                    ValidAudience = builder.Configuration.GetSection("IdentityServer:Audience").Value,
+                    ValidateIssuer = true,
+                    ValidIssuer = builder.Configuration.GetSection("IdentityServer:Issuer").Value,
 
-    };
+                };
+                options.RequireHttpsMetadata = false;
 
-
-});
+            });
+builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
-builder.Services.AddScoped<IAuthService, AuthService>();
-//builder.Services.AddScoped<ApiKeyAuthenticationFilter>();
+builder.Services.AddScoped<IAuthIndentityServerServiceProvider, AuthIdentityServerServiceProvider>();
+builder.Services.AddScoped<IAuthServiceAdapter, AuthServiceAdapter>();
 builder.Services.AddScoped<WeatherApiService>();
 builder.Services.AddScoped<IWeatherRepo, WeatherRepo>();
-//builder.Services.AddScoped<IWeatherApi, WeatherApiProvider>();
 builder.Services.AddScoped<IWeatherApi, WeatherApiAdapter>();
 builder.Services.AddScoped<IWeatherApiProvider, WeatherApiProvider>();
 
@@ -108,9 +92,6 @@ builder.Services.AddSwaggerGen(
 
     );
 
-builder.Services.AddHttpClient();
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -123,7 +104,6 @@ if (app.Environment.IsDevelopment())
 app.UseProblemDetailsExceptionHandler();
 
 app.UseHttpsRedirection();
-//app.UseMiddleware<ApiKeyAuthenticationMiddleware>();
 
 app.UseAuthentication();
 app.UseAuthorization();

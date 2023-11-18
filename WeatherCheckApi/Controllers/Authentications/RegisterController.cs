@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 using WeatherCheckApi.Application.Constants;
 using WeatherCheckApi.Application.DTO;
-using WeatherCheckApi.Exceptions;
 using WeatherCheckApi.Interfaces;
 using WeatherCheckApi.Responses;
 
@@ -14,9 +12,9 @@ namespace WeatherCheckApi.Controllers.Authentications
     [ApiController]
     public class RegisterController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly IAuthServiceAdapter _authService;
 
-        public RegisterController(IAuthService authService)
+        public RegisterController(IAuthServiceAdapter authService)
         {
             _authService = authService;
         }
@@ -26,16 +24,22 @@ namespace WeatherCheckApi.Controllers.Authentications
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            if(await _authService.CheckIfUserAlreadyxist(user))
-            {
-                return BadRequest(new {error = MessageConstants.UserAlreadyRegistered});
-            }
-
-            var isRegistered = await _authService.Register(user);
+            bool isRegistered = await _authService.Register(user);
 
             if (!isRegistered) return BadRequest();
 
             return Ok(new SuccessResponse(MessageConstants.RegistrationSuccess));
+
+            //if(await _authService.CheckIfUserAlreadyxist(user))
+            //{
+            //    return BadRequest(new {error = MessageConstants.UserAlreadyRegistered});
+            //}
+
+            //var isRegistered = await _authService.Register(user);
+
+            //if (!isRegistered) return BadRequest();
+
+            //return Ok(new SuccessResponse(MessageConstants.RegistrationSuccess));
         }
     }
 }

@@ -10,12 +10,12 @@ using WeatherCheckApi.Interfaces;
 
 namespace WeatherCheckApi.Services
 {
-    public class AuthService : IAuthService
+    public class AuthServiceProvider : IAuthServiceProvider
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _config;
 
-        public AuthService(UserManager<ApplicationUser> userManager, IConfiguration config)
+        public AuthServiceProvider(UserManager<ApplicationUser> userManager, IConfiguration config)
         {
             _userManager = userManager;
             _config = config;
