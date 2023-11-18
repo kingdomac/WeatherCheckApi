@@ -22,7 +22,7 @@ namespace WeatherCheckApi.Controllers.Authentications
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(LoginUserDto user)
+        public async Task<IActionResult> Register(RegisterUserDto user)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 

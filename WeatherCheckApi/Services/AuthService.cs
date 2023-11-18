@@ -21,7 +21,7 @@ namespace WeatherCheckApi.Services
             _config = config;
         }
 
-        public async Task<bool> Register(LoginUserDto user)
+        public async Task<bool> Register(RegisterUserDto user)
         {
             
             var identityUSer = new ApplicationUser
@@ -43,6 +43,7 @@ namespace WeatherCheckApi.Services
             {
                 return (new ApplicationUser(), false);
             }
+
             var isPasswordValid = await _userManager.CheckPasswordAsync(identityUser, user.Password);
             if (!isPasswordValid)
             {
@@ -76,7 +77,7 @@ namespace WeatherCheckApi.Services
             return tokenString;
         }
 
-        public async Task<bool> CheckIfUserAlreadyxist(LoginUserDto user)
+        public async Task<bool> CheckIfUserAlreadyxist(RegisterUserDto user)
         {
             var userDb =  await _userManager.FindByEmailAsync(user.Email);
 
